@@ -1,0 +1,149 @@
+# ============================================
+# GITIGNORE - Weapon Detection System
+# ============================================
+
+# ========== PYTHON ==========
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# ========== MODELOS Y DATOS ==========
+# Datasets (muy pesados)
+datasets/
+data/
+*.zip
+*.tar.gz
+
+# Modelos entrenados (comentar si quieres versionar)
+# runs/
+# *.pt
+# *.pth
+# *.onnx
+# *.engine
+
+# Archivos temporales de YOLO
+runs/detect/predict*/
+runs/detect/val*/
+wandb/
+
+# ========== BACKEND ==========
+# Variables de entorno
+.env
+*.env
+
+# Credenciales sensibles
+firebase-credentials.json
+*.json.secret
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Base de datos local
+*.db
+*.sqlite
+*.sqlite3
+
+# ========== FLUTTER/MOBILE ==========
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+flutter_*.png
+
+# iOS
+mobile_app/ios/Pods/
+mobile_app/ios/.symlinks/
+mobile_app/ios/Flutter/Flutter.framework
+mobile_app/ios/Flutter/Flutter.podspec
+mobile_app/ios/.generated/
+mobile_app/ios/Runner/GeneratedPluginRegistrant.*
+
+# Android
+mobile_app/android/.gradle/
+mobile_app/android/captures/
+mobile_app/android/local.properties
+mobile_app/android/app/debug/
+mobile_app/android/app/profile/
+mobile_app/android/app/release/
+mobile_app/android/gradle/
+mobile_app/android/.idea/
+
+# Firebase config files (configurar manualmente)
+mobile_app/android/app/google-services.json
+mobile_app/ios/Runner/GoogleService-Info.plist
+mobile_app/lib/firebase_options.dart
+
+# ========== DOCKER ==========
+*.log
+docker-compose.override.yml
+
+# ========== SISTEMA ==========
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ========== OTROS ==========
+# Archivos grandes de video/imagen
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Backups
+*.bak
+*.backup
+backup/
+
+# Test files
+test_images/
+test_videos/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover

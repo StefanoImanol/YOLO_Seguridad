@@ -1,0 +1,63 @@
+name: weapon_detection_app
+description: Aplicación móvil para detección de armas en tiempo real usando YOLOv11
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # UI
+  cupertino_icons: ^1.0.6
+
+  # Cámara
+  camera: ^0.10.5+9
+
+  # HTTP y WebSocket
+  http: ^1.2.0
+  web_socket_channel: ^2.4.0
+
+  # Permisos
+  permission_handler: ^11.2.0
+
+  # Notificaciones Push (Firebase)
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.9
+  flutter_local_notifications: ^16.3.2
+
+  # Manejo de estado
+  provider: ^6.1.1
+
+  # Utils
+  intl: ^0.18.1
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.2
+
+  # Conversión de imágenes
+  image: ^4.1.4
+
+  # Sonido de alerta
+  audioplayers: ^5.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/sounds/
+    - assets/images/
+
+  # Fuentes personalizadas (opcional)
+  # fonts:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: fonts/Roboto-Regular.ttf

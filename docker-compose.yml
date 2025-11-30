@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # Backend de detección de armas
+  weapon-detection-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: weapon-detection-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      # Montar modelo entrenado
+      - ./runs/detect/train/weights:/app/models
+      # Montar logs
+      - ./backend/logs:/app/logs
+      # Montar credenciales de Firebase
+      - ./backend/firebase-credentials.json:/app/firebase-credentials.json:ro
+    environment:
+      - MODEL_PATH=/app/models/best.pt
+      - CONFIDENCE_THRESHOLD=0.4
+      - HOST=0.0.0.0
+      - PORT=8000
+      # Twilio (configurar con tus credenciales)
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER}
+      # Firebase
+      - FIREBASE_CREDENTIALS_PATH=/app/firebase-credentials.json
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks:
+      - weapon-detection-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Redis (opcional - para caché y rate limiting)
+  redis:
+    image: redis:7-alpine
+    container_name: weapon-detection-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - weapon-detection-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # MongoDB (opcional - para almacenar detecciones)
+  # mongodb:
+  #   image: mongo:6
+  #   container_name: weapon-detection-db
+  #   restart: unless-stopped
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: admin
+  #     MONGO_INITDB_ROOT_PASSWORD: password123
+  #   volumes:
+  #     - mongodb-data:/data/db
+  #   networks:
+  #     - weapon-detection-network
+
+networks:
+  weapon-detection-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  # mongodb-data:
